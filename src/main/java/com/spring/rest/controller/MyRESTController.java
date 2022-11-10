@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,6 +62,22 @@ public class MyRESTController {
             throw new NoSuchEmployeeException("URL is incorrect, There is no " +
                     "Employee  with this id, change this ID " + id);
         }
+        return employee;
+    }
+
+    /**
+     * The addNewEmployee for URL "/api/employees" and request POST with some
+     * "body" info creat new Object in DB
+     * <p>
+     * " @PostMapping" request in which sending INFO
+     * "@RequestBody" taking INFO for Object in DB from "body" request
+     *
+     * @param employee object with info
+     * @return new Object in DB
+     */
+    @PostMapping("/employees")
+    public Employee addNewEmployee(@RequestBody Employee employee) {
+        employeeService.saveEmployee(employee);
         return employee;
     }
 
