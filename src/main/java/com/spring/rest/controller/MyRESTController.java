@@ -57,41 +57,10 @@ public class MyRESTController {
         Employee employee = employeeService.getEmployee(id);
 
         if (employee == null) {
-            throw new NoSuchEmployeeException("URL is incorrect, There is no " + "Employee  with this id  no, change this ID " + id);
+            throw new NoSuchEmployeeException("URL is incorrect, There is no " +
+                    "Employee  with this id, change this ID " + id);
         }
         return employee;
     }
 
-    /**
-     * The handleException in case wrong URL catch "NoSuchEmployeeException"
-     * And create "EmployeeIncorrectURL" object in which set message txt from
-     * "NoSuchEmployeeException"
-     * <p>
-     * Work only in case wrong id
-     *
-     * @param exception NoSuchEmployeeException object with txt
-     * @return EmployeeIncorrectURL with txt from "getEmployee" method throw
-     * Object
-     */
-    @ExceptionHandler
-    public ResponseEntity<EmployeeIncorrectURL> handleException(NoSuchEmployeeException exception) {
-        EmployeeIncorrectURL data = new EmployeeIncorrectURL();
-        data.setInfoMessage(exception.getMessage());
-
-        return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * In case wrong URL throw this massage
-     *
-     * @param exception catching any Java Exception
-     * @return JSON with value of txt any Java Exception
-     */
-    @ExceptionHandler
-    public ResponseEntity<EmployeeIncorrectURL> handleException(Exception exception) {
-        EmployeeIncorrectURL data = new EmployeeIncorrectURL();
-        data.setInfoMessage(exception.getMessage());
-
-        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
-    }
 }
