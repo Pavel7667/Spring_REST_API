@@ -4,6 +4,7 @@ import com.spring.rest.entity.Employee;
 import com.spring.rest.exeption_handling.NoSuchEmployeeException;
 import com.spring.rest.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,6 +92,20 @@ public class MyRESTController {
     public Employee updateEmployee(@RequestBody Employee employee) {
         employeeService.saveEmployee(employee);
         return employee;
+    }
+
+    /**
+     * The deleteObject from DB by ID gotten from URL parameters
+     * <p>
+     * "@DeleteMapping" for this URL request delete Object from DB
+     *
+     * @param id of Object in "@PathVariable" take id from URL parameters
+     * @return message that the Object has been removed from the database
+     */
+    @DeleteMapping("/employees/{id}")
+    public String deleteEmployee(@PathVariable int id) {
+        employeeService.deleteEmployee(id);
+        return "Object with id = " + id + " was deleted from DB";
     }
 
 }
