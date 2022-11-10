@@ -1,16 +1,13 @@
 package com.spring.rest.controller;
 
 import com.spring.rest.entity.Employee;
-import com.spring.rest.exeption_handling.EmployeeIncorrectURL;
 import com.spring.rest.exeption_handling.NoSuchEmployeeException;
 import com.spring.rest.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +74,21 @@ public class MyRESTController {
      */
     @PostMapping("/employees")
     public Employee addNewEmployee(@RequestBody Employee employee) {
+        employeeService.saveEmployee(employee);
+        return employee;
+    }
+
+    /**
+     * The updateEmployee take object from DB by ID, change parameters and save
+     * <p>
+     * "@PutMapping" request in which reSave Object in DB with new Parameters
+     * "@RequestBody" taking INFO for Object in DB from "body" request
+     *
+     * @param employee Java Object
+     * @return Update DB Object
+     */
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee employee) {
         employeeService.saveEmployee(employee);
         return employee;
     }
